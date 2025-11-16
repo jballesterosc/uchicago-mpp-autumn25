@@ -115,6 +115,12 @@ Based on the p-value of 0.0664 and the significance level of $\alpha$ = 0.05, we
 ### 6.4. What is the outcome of the hypothesis? Briefly compare the outcome of this hypothesis test with the conclusion of your analysis from question (5v). In other words, why do you arrive at the same conclusion or a different conclusion?
 \pagebreak
 # DATA EXERCISE
+```{r setup, include=FALSE}
+library(ggplot2)
+library(dplyr)
+setwd("C:/Users/jayba/OneDrive - University of Chicago/PPHA 31002 Stats for Data Analysis I/stats1/hw3")
+hw3data <- read.csv("_data/hw3_data.csv")
+```
 
 ## 7. Construct a scatterplot showing the relationship between the proportion of protected land areas and state capacity score. The proportion of protected land areas should be measured on the vertical axis (y-axis), and state capacity on the horizontal axis (x-axis). Make sure to label both axes and include a title as well. Provide a brief description of the relationship between these two variables based on a visual inspection. [1.5pts]
 ## 8. Run a regression of percent of protected land area (dependent variable) on the state capacity score (inde- pendent variable), and plot the regression line atop scatterplot you just created. [1pt]
