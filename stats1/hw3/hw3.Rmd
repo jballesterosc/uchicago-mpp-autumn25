@@ -3,10 +3,7 @@ title: "Homework 3"
 subtitle: "PPHA 31002 | Statistics for Data Analysis I"
 author: "Jay Ballesteros"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
-output:
-  pdf_document:
-    toc: true
-    toc_depth: 2
+output: pdf_document
 ---
 
 \newpage
@@ -116,17 +113,66 @@ Based on the p-value of 0.0664 and the significance level of $\alpha$ = 0.05, we
 \pagebreak
 # DATA EXERCISE
 ```{r setup, include=FALSE}
-library(ggplot2)
-library(dplyr)
-setwd("C:/Users/jayba/OneDrive - University of Chicago/PPHA 31002 Stats for Data Analysis I/stats1/hw3")
-hw3data <- read.csv("_data/hw3_data.csv")
+library(tidyverse)
+df <- read_csv("_data/hw3_data.csv")
 ```
 
 ## 7. Construct a scatterplot showing the relationship between the proportion of protected land areas and state capacity score. The proportion of protected land areas should be measured on the vertical axis (y-axis), and state capacity on the horizontal axis (x-axis). Make sure to label both axes and include a title as well. Provide a brief description of the relationship between these two variables based on a visual inspection. [1.5pts]
+```{r scatterplot, echo=FALSE}
+ggplot(df, aes(x = state_capacity_score, y = percent_of_protected_land_area)) +
+  geom_point() +
+  labs(title = "Proportion of protected land areas vs state capacity",
+       x = "State capacity score",
+       y = "Proportion of protected land area") +
+  theme_minimal()
+```
+Based on the scatterplot, there appears to be a positive relationship between the state capacity score and the percentage of protected land area. As the state capacity score increases, the percentage of protected land area also tends to increase. This suggests that countries with higher state capacity scores may be more effective in protecting their land areas.
+
 ## 8. Run a regression of percent of protected land area (dependent variable) on the state capacity score (inde- pendent variable), and plot the regression line atop scatterplot you just created. [1pt]
+```{r regression, echo=FALSE}
+model <- lm(percent_of_protected_land_area ~ state_capacity_score, data = df)
+
+ggplot(df, aes(x = state_capacity_score, y = percent_of_protected_land_area)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(title = "Proportion of protected land areas vs state capacity with regression line",
+       x = "State capacity score",
+       y = "Proportion of protected land area") +
+  theme_minimal()
+```
+
 ## 9. Report the estimated intercept and coefficient, interpret them, and explain if the estimated intercept is substantively meaningful in this context.
-## 10. Calculate the predicted percent of land under protection in a country with a state capacity of 3. To what extent should we assign substantive meaning to this predicted value?
+
+The estimated intercept for the model is 13.923514 and the coefficient for the state capacity score is 3.872412. In this context, the results can be interpreted as follows:
+- The intercept (13.923514) represents the predicted percentage of protected land area when the state capacity score is 0. However, this value may not be substantively meaningful because a state capacity score of 0 may not be realistic or applicable in real-world scenarios.
+- The coefficient (3.872412) indicates that for each one-unit increase in the state capacity score, the percentage of protected land area is expected to increase by approximately 3.87 percentage points, holding all else constant. This suggests a positive relationship between state capacity and the extent of land protection.
+
+## 10. Calculate the predicted percent of land under protection in a country with a state capacity of 3. To what extent should we assign
+substantive meaning to this predicted value?
+
+Using the regression equation:
+$$Y = \alpha + \beta * X$$
+Where Y is the predicted percentage of protected land area, $\alpha$ is the intercept (13.923514), $\beta$ is the coefficient (3.872412), and X is the state capacity score (3).
+Calculating the predicted value:
+$$Y = 13.923514 + 3.872412 * 3 = 25.54075$$
+The predicted percentage of land under protection in a country with a state capacity of 3 is approximately 25.54%. This predicted value can be assigned substantive meaning as it provides an estimate of the extent of land protection based on the state capacity score. However, it is important to consider the context and limitations of the model, such as the range of state capacity scores in the data and potential confounding factors that may influence land protection.
+
 
 ## 11. One of your friends suggests that assuming a linear relationship between the percentage of protected land area and the state capacity score might be imposing a very strong and unrealistic assumption about the structure of the data. They suggest you split the state capacity score into deciles (i.e. 10 equal-sized groups), and regress the outcome on indicators for a country’s status in the 2nd, 3rd,…, 10th decile. Use the ntile() command from the dplyr library to create the deciles. Then, use the factor() function to store the decile variable you just created to be recognized as a factor variable in R. This way, you do not need to create separate indicator variables for each decile category. Simply include the factor variable as the explanatory variable in the lm() function and R implictly assumes that you would like to include various binary indicators variables for each category in your regression. Note that R will automatically omit the first category to use as the reference group. Report the estimates from your regression.
 
+```{r decile_regression, echo=FALSE}
+df$capacity_deciles <- ntile(df$state_capacity_score, 10)
+df$capacity_deciles <- factor(df$capacity_deciles)
+decile_model <- lm(percent_of_protected_land_area ~ capacity_deciles, data = df)
+summary(decile_model)
+```
+```{r}
+library(jtools)
+summ(decile_model)
+```
+
+The regression results from the decile model indicate the following estimated coefficients for each decile category (with the first decile as the reference group):
+
 ## 12. Which regression—the one based on the single variable for state capacity or its transformation to deciles— seems to provide better predictions of annual earnings within the sample? Explain your answer.
+
+To determine which regression model provides better predictions of annual earnings within the sample, we can compare the R-squared values of both models. The model with the higher R-squared value indicates a better fit to the data, as it explains a larger proportion of the variance in the dependent variable (percent of protected land area).
