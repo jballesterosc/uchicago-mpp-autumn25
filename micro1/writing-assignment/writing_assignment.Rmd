@@ -3,8 +3,8 @@ title: "Writing Assignment"
 subtitle: "PPHA 32300 Microeconomics and Public Policy I"
 author: 
   - "Jay Ballesteros"
-  - "Mingyang Li"
   - "Nelson Coelho"
+  - "Mingyang Li"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output: 
   pdf_document:
@@ -15,9 +15,7 @@ output:
 \newpage
 
 # 1. Technical report
-Plastic packaging is supplied in a competitive national market, resulting in a uniform supply curve across all states. Analysis of states with producer-side taxes reveals the fundamental nature of this supply. In Oregon, California, and Ohio, the observed market price minus the tax yields an identical net-of-tax price for producers of \$1,000 per ton, despite different quantities supplied.
-
-This indicates that the national supply curve is perfectly elastic at $P_s = \$1,000$ over the observed range. Producers are willing to supply any quantity demanded by individual states at this constant price. The demand curve for Illinois is derived from two key pieces of information. First, Illinois and Ohio have identical demand conditions due to matching population and preferences. Second, we observe the pre-tax equilibrium in Illinois, where the price is \$1,000 and the quantity is 2.4 million tons. Using Ohio's data point where a consumer price of \$1,120 at a quantity of 1.8 million tons, and Illinois's pre-tax point, we derive the Illinois demand curve as $P_s= 1480 - 200Q(million tons)$. Consequently, the pre-tax equilibrium in Illinois is naturally established at a price of \$1,000 per ton and a quantity of 2.4 million tons.
+Plastic packaging is supplied in a competitive national market, resulting in a uniform supply curve across all states. Analysis of states with producer-side taxes reveals the fundamental nature of this supply. In Oregon, California, and Ohio, the observed market price minus the tax yields an identical net-of-tax price for producers of \$1,000 per ton, despite different quantities supplied. This indicates that the national supply curve is perfectly elastic at $P_s = \$1,000$ over the observed range. Producers are willing to supply any quantity demanded by individual states at this constant price. The demand curve for Illinois is derived from two key pieces of information. First, Illinois and Ohio have identical demand conditions due to matching population and preferences. Second, we observe the pre-tax equilibrium in Illinois, where the price is \$1,000 and the quantity is 2.4 million tons. Using Ohio's data point where a consumer price of \$1,120 at a quantity of 1.8 million tons, and Illinois's pre-tax point, we derive the Illinois demand curve as $P_s= 1480 - 200Q(million tons)$. Consequently, the pre-tax equilibrium in Illinois is naturally established at a price of \$1,000 per ton and a quantity of 2.4 million tons.
 
 The analysis assumes plastic production generates a negative externality, and evidence confirms this External Marginal Cost (EMC) is increasing with quantity. Policymakers in California, Oregon, and Texas have implemented efficient Pigouvian taxes, meaning the tax rate equals the EMC at the socially optimal quantity in each state. Oregon's $100 tax at a quantity of 2.0 million tons implies an EMC of \$100 at that output level. California's $150 tax at 3.0 million tons implies an EMC of \$150. These two data points allow us to model the External Marginal Cost curve as $EMC(Q) = 50Q(million tons)$, confirming that pollution costs rise linearly with production.
 
@@ -86,6 +84,7 @@ While the supply curve: $P_s = 1000$
 External costs: $EMC(Q) = 50Q$
 
 #### Surplus calculations
+
 Pre-tax consumer surplus: $CS = \frac{1}{2} \times (1480 - 1000) \times 2.4 = 576\ million$
 
 Pre-tax producer surplus is zero as the supply curve is perfectly elastic. 
@@ -99,43 +98,54 @@ Total external cost: $TEC = \frac{1}{2} \times EMC(Q_A) \times Q_A = \frac{1}{2}
 
 #### Deadweight loss calculation from externalities
 
-Socially optimal quantity ($Q^*$) is found where the demand curve intersects the social marginal cost (SMC) curve, which is the sum of the supply curve and the EMC curve:
+
 $$SMC = P_s + EMC(Q) = 1000 + 50Q$$
 Setting $P_d = SMC$ to find $Q^*$:
+
 $$1480 - 200Q = 1000 + 50Q$$
 $$480 = 250Q$$
 $$Q^* = 1.92\ million\ tons$$
 
 Next, we compute the deadweight loss (DWL) due to externality:
-$$DWL_Ext = \frac{1}{2} \times (EMC(Q_A) - EMC(Q^*)) \times (Q_A - Q^*)$$
-Where $EMC(Q_A) = 50 \times 2.4 = 120$ and $EMC(Q^*) = 50 \times 1.92 = 96$:
-$$DWL = \frac{1}{2} \times (120 - 96) \times (2.4 - 1.92)$$
-$$DWL = \frac{1}{2} \times 24 \times 0.48 = 5.76\ million$$
-Thus, the deadweight loss from externalities in the pre-tax scenario is $5.76 million$.
+
+$$DWL_Ext = \frac{1}{2} \times (MSC(Q_A) - P_d(Q_A)) \times (Q_A - Q)$$
+At $Q_A = 2.4$ million tons:
+
+$$MSC(Q_A) = 1000 + 50 \times 2.4 = 1120$$
+
+$$P_d(Q_A) = 1000 = P_s(Q_A)$$
+
+$$DWL_Ext = \frac{1}{2} \times (1120 - 1000) \times (2.4 - 1.92) = 28.8\ million$$
 
 ### Post-tax scenario
 
-#### Equilibrium calculations
+After the tax is implemented, the new equilibrium price and quantity for conssumers:
+$$Pconsumer = 1480 - 200 \times Q_d = 1100$$
+$$Q_d = 1.9 $$
 
-After the tax is implemented, the new equilibrium price and quantity for consumers and producers:
+For producers:
 
-New consumer price: $P_c = P_s + Tax = 1000 + 100 = 1100$
-Consumer quantity: $Q_d = 1.9$ million tons
-
-For producers, the price remains $P_s = 1000$.
+$$Pproducer = 1100 - 100 = 1000$$
 
 #### Surplus calculations
 
-Post-tax consumer surplus: $CS = \frac{1}{2} \times (1480 - 1100) \times 1.9 = 361\ million$
+$$CSpost-tax = \frac{1}{2} \times (1480 - 1100) \times 1.9 = 361\ million$$
+Post-tax producer surplus remains zero.
 
-Post-tax producer surplus is zero as the supply curve is perfectly elastic.
+Post-tax total surplus:
+$$TSpost-tax = CS + PS = 361 + 0  = 361\ million$$
+Total external cost:
 
-Government revenue from the tax: $GR = Tax \times Q_d = 100 \times 1.9 = 190\ million$
+$$EMC(1.9) = 50 \times 1.9 = 95$$
+$$TECpost-tax = \frac{1}{2} \times 95 \times 1.9 = 90.25\ million$$
+Government revenue from the tax:
+$$GR = Tax \times Q_d = 100 \times 1.9 = 190\ million$$
+#### Deadweight loss calculation
 
-Post-tax total surplus: $TS = CS + PS + GR = 361 + 0 + 190 = 551\ million$
-
-
-
-
-
+Next, we compute the DWL due to externality after the tax:
+$$DWLpost-tax = \frac{1}{2} \times (MSC(Q_A) - P_d(Q_A)) \times (Q_A - Q*)$$
+At $Q_A = 1.9$ million tons:
+$$MSC(Q_A) = 1000 + 50 \times 1.9 = 1095$$
+$$P_d(Q_A) = 1100$$
+$$DWLpost-tax = \frac{1}{2} \times (1095 - 1100) \times (1.9 - 1.92) = 0.05\ million$$
 
